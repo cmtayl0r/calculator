@@ -63,8 +63,11 @@ class Calculator {
         if (this.currentOperand === '') return;
 
         // If the previous operand is not empty, calculate the result
-        // this shows the result of the previous operation in the previous operand
+        //  If previousOperand is not an empty string,
+        // it means there is a previous operand available for calculation.
         if (this.previousOperand !== '') {
+            // calculation based on the current and previous operands
+            // and the operation stored in the object
             this.calculate();
         }
 
@@ -80,6 +83,7 @@ class Calculator {
     }
 
     calculate() {
+        // Declare a variable to hold the result of the calculation
         let calculation;
         // Convert the previous and current operands to numbers
         const prev = parseFloat(this.previousOperand);
@@ -107,32 +111,53 @@ class Calculator {
         this.currentOperand = calculation;
         // Set the operation to undefined because the calculation is complete
         this.operation = undefined;
-        // Clear the previous operand
+        // Clear the previous operand because the calculation is complete
         this.previousOperand = '';
     }
 
-    // Format the display of the number to use commas
-    formatDisplay(number) {
-        // Convert from a string to a number
-        const floatNumber = parseFloat(number);
-        // If the number is NaN, return an empty string
-        // because the number cannot be formatted
-        if (isNaN(floatNumber)) return '';
-        // Return the number formatted with commas
-        return floatNumber.toLocaleString('en');
+    // Format the number
+    formatNumber(number) {
+        // Convert the number to a string
+        const stringNumber = number.toString();
+        // Split the string at the decimal point and convert the integer part to a number
+        const integerDigits = parseFloat(stringNumber.split('.')[0]);
+        // Get the decimal part of the number as a string
+        const decimalDigits = stringNumber.split('.')[1];
+        // Declare a variable to hold the formatted integer part
+        let integerDisplay;
+        // If the integer part is not a number (NaN), set integerDisplay to an empty string
+        if (isNaN(integerDigits)) {
+            integerDisplay = '';
+        } else {
+            // Convert the integer part to a localized string with no decimal places
+            integerDisplay = integerDigits.toLocaleString('en', {
+                maximumFractionDigits: 0,
+            });
+        }
+
+        // If there are decimal digits, return the formatted integer part followed by the decimal part
+        if (decimalDigits != null) {
+            return `${integerDisplay}.${decimalDigits}`;
+        } else {
+            // If there are no decimal digits, return just the formatted integer part
+            return integerDisplay;
+        }
     }
 
     updateDisplay() {
         // A - Update the display of the current operand
-        this.currentOperandText.innerText = this.formatDisplay(
+        this.currentOperandText.innerText = this.formatNumber(
             this.currentOperand,
         );
 
         // B - Update the display of the previous operand
-        // If an operation is selected
+        // if an operation is selected
         if (this.operation != null) {
             // Display the previous operand and the operation in the previous operand text
-            this.previousOperandText.innerText = `${this.formatDisplay(this.previousOperand)} ${this.operation}`;
+            this.previousOperandText.innerText = `${this.formatNumber(this.previousOperand)} ${this.operation}`;
+        } else {
+            //
+            this.previousOperandText.innerText = '';
         }
     }
 
