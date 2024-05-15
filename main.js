@@ -37,7 +37,10 @@ class Calculator {
         this.operation = undefined; // No operation selected
     }
 
-    delete() {}
+    delete() {
+        // Remove the last character from the current operand
+        this.currentOperand = this.currentOperand.toString().slice(0, -1);
+    }
 
     appendNumber(number) {
         // Pass in the number pressed as an argument
@@ -53,13 +56,68 @@ class Calculator {
     }
 
     chooseOperation(operation) {
-        // Pass in the operation as an argument
+        // Pass in the operation selected as an argument
+
+        // If the current operand is empty, stop the function from executing
+        if (this.currentOperand === '') return;
+
+        // If the previous operand is not empty, calculate the result
+        // this shows the result of the previous operation in the previous operand
+        if (this.previousOperand !== '') {
+            this.calculate();
+        }
+
+        // Set the operation to the operation passed in
+        this.operation = operation;
+
+        // Set the previous operand to the current operand
+        // This allows the current operand to be cleared
+        // and the previous operand to be displayed
+        this.previousOperand = this.currentOperand;
+        // Clear the current operand
+        this.currentOperand = '';
     }
 
-    calculate() {}
+    calculate() {
+        let calculation;
+        // Convert the previous and current operands to numbers
+        const prev = parseFloat(this.previousOperand);
+        const current = parseFloat(this.currentOperand);
+        // If either the previous or current operand is NaN,
+        // stop the function from executing
+        if (isNaN(prev) || isNaN(current)) return;
+        switch (this.operation) {
+            case '+':
+                calculation = prev + current;
+                break;
+            case '-':
+                calculation = prev - current;
+                break;
+            case '*':
+                calculation = prev * current;
+                break;
+            case '÷':
+                calculation = prev / current;
+                break;
+            default:
+                return;
+        }
+        // Set the current operand to the result of the calculation
+        this.currentOperand = calculation;
+        // Set the operation to undefined because the calculation is complete
+        this.operation = undefined;
+        // Clear the previous operand
+        this.previousOperand = '';
+    }
 
     updateDisplay() {
         this.currentOperandText.innerText = this.currentOperand;
+        this.previousOperandText.innerText = this.previousOperand;
+
+        // If an operation is selected, display the previous operand and the operation
+        if (this.operation != null) {
+            this.previousOperandText.innerText = `${this.previousOperand} ${this.operation}`;
+        }
     }
 
     bindEvents() {
@@ -67,17 +125,30 @@ class Calculator {
             button.addEventListener('click', event => {
                 // Pass in the number from the button as an argument
                 this.appendNumber(event.target.innerText);
+                // Update the display after the number is appended
                 this.updateDisplay();
             });
         });
         operationButtons.forEach(button => {
-            button.addEventListener('click', event =>
-                this.chooseOperation(event.target.innerText),
-            );
+            button.addEventListener('click', event => {
+                // Pass in the operation from the button as an argument
+                this.chooseOperation(event.target.innerText);
+                // Update the display after the operation is chosen
+                this.updateDisplay();
+            });
         });
-        equalsButton.addEventListener('click', () => this.calculate());
-        allClearButton.addEventListener('click', () => this.clear());
-        deleteButton.addEventListener('click', () => this.delete());
+        equalsButton.addEventListener('click', () => {
+            this.calculate();
+            this.updateDisplay();
+        });
+        allClearButton.addEventListener('click', () => {
+            this.clear();
+            this.updateDisplay();
+        });
+        deleteButton.addEventListener('click', () => {
+            this.delete();
+            this.updateDisplay();
+        });
     }
 }
 
