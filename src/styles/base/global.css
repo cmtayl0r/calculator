@@ -36,6 +36,9 @@ body {
         &:active {
             background-color: #202020;
         }
+        &:focus-visible {
+            border: yellow solid 2px;
+        }
     }
 }
 .span-2 {

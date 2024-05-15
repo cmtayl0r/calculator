@@ -1,5 +1,11 @@
 import './src/styles/main.css';
 
+// TODO: add keyboard support
+// TODO: add dark mode switch
+// TODO: add sound effects
+// TODO: Display a snarky error message if the user tries to divide by 0
+// TODO: Make responsive
+
 // -----------------------------------------------------------------------------
 // DOM ELEMENTS
 // -----------------------------------------------------------------------------
@@ -114,6 +120,7 @@ class Calculator {
         this.previousOperand = '';
     }
 
+    // TODO: Understand this method
     // Format the number for localization and decimal handling
     formatNumber(number) {
         // Convert the number to a string
