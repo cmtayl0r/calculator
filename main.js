@@ -32,7 +32,7 @@ class Calculator {
     }
 
     clear() {
-        // These values are defined on initialization and are updated during the calculation
+        // These values are defined on initialization and are updated during the various class methods
         this.currentOperand = '';
         this.previousOperand = '';
         this.operation = undefined; // No operation selected
@@ -62,12 +62,11 @@ class Calculator {
         // If the current operand is empty, stop the function from executing
         if (this.currentOperand === '') return;
 
-        // If the previous operand is not empty, calculate the result
-        //  If previousOperand is not an empty string,
+        // If previousOperand is not empty, calculate the result
         // it means there is a previous operand available for calculation.
         if (this.previousOperand !== '') {
             // calculation based on the current and previous operands
-            // and the operation stored in the object
+            // and the operation passed in
             this.calculate();
         }
 
@@ -115,7 +114,7 @@ class Calculator {
         this.previousOperand = '';
     }
 
-    // Format the number
+    // Format the number for localization and decimal handling
     formatNumber(number) {
         // Convert the number to a string
         const stringNumber = number.toString();
@@ -134,7 +133,6 @@ class Calculator {
                 maximumFractionDigits: 0,
             });
         }
-
         // If there are decimal digits, return the formatted integer part followed by the decimal part
         if (decimalDigits != null) {
             return `${integerDisplay}.${decimalDigits}`;
@@ -151,12 +149,12 @@ class Calculator {
         );
 
         // B - Update the display of the previous operand
-        // if an operation is selected
+        // if an operation is selected...
         if (this.operation != null) {
             // Display the previous operand and the operation in the previous operand text
             this.previousOperandText.innerText = `${this.formatNumber(this.previousOperand)} ${this.operation}`;
         } else {
-            //
+            // if no operation is selected, previous operand text is empty
             this.previousOperandText.innerText = '';
         }
     }
