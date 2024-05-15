@@ -1,13 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculator</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="./main.js"></script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Calculator</title>
+    </head>
+    <body>
+        <div id="app"></div>
+        <div class="container">
+            <div class="display"></div>
+            <div class="operators">
+                <button data-op="add">+</button>
+                <button data-op="sub">-</button>
+                <button data-op="mul">*</button>
+                <button data-op="div">/</button>
+                <button data-op="eq">=</button>
+                <button data-op="clear">C</button>
+            </div>
+            <div class="numbers">
+                <button data-num="1" class="">1</button>
+                <button data-num="2" class="">2</button>
+                <button data-num="3" class="">3</button>
+                <button data-num="4" class="">4</button>
+                <button data-num="5" class="">5</button>
+                <button data-num="6" class="">6</button>
+                <button data-num="7" class="">7</button>
+                <button data-num="8" class="">8</button>
+                <button data-num="9" class="">9</button>
+                <button data-num="0" class="">0</button>
+            </div>
+        </div>
+        <script type="module" src="./main.js"></script>
+    </body>
 </html>

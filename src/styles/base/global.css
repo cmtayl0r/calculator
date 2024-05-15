@@ -1,14 +1,42 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.container {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.display {
+    border: 1px solid #5b5b5b;
+    padding: 0.5rem 1rem;
+    font-size: 3rem;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.numbers,
+.operators {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+button {
+    font-size: 2rem;
+    cursor: pointer;
+    width: 4rem;
+    height: 4rem;
 }
