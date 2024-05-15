@@ -1,9 +1,87 @@
 import './src/styles/main.css';
 
-const calculatorDisplay = document.querySelector('.output');
-const numericButtons = document.querySelectorAll('.numbers');
-const operatorButtons = document.querySelectorAll('.operators');
+// -----------------------------------------------------------------------------
+// DOM ELEMENTS
+// -----------------------------------------------------------------------------
 
+const numericButtons = document.querySelectorAll('[data-number]');
+const operationButtons = document.querySelectorAll('[data-operation]');
+const equalsButton = document.querySelector('[data-equals]');
+const deleteButton = document.querySelector('[data-delete]');
+const allClearButton = document.querySelector('[data-all-clear]');
+const previousOperandText = document.querySelector('[data-previous-operand]');
+const currentOperandText = document.querySelector('[data-current-operand]');
+
+// -----------------------------------------------------------------------------
+// CALCULATOR CLASS
+// -----------------------------------------------------------------------------
+
+class Calculator {
+    constructor(previousOperandText, currentOperandText) {
+        // Constructor arguments are the operands because they are the only
+        // elements that need to be updated during the calculation
+        this.previousOperandText = previousOperandText;
+        this.currentOperandText = currentOperandText;
+        // Clear the calculator when it is initialized
+        this.clear();
+        // Bind events to the buttons
+        this.bindEvents();
+    }
+
+    clear() {
+        console.log('HELLO!');
+        console.log(previousOperandText);
+        console.log(currentOperandText);
+        this.currentOperand = '';
+        this.previousOperand = '';
+        this.operation = undefined; // No operation selected
+    }
+
+    delete() {}
+
+    appendNumber(number) {
+        // Pass in the number pressed as an argument
+
+        // If the number is a '.' and the current operand already contains a '.',
+        // stop the function from executing
+        if (number === '.' && this.currentOperand.includes('.')) return;
+
+        // Convert the number to a string and append it to the current operand
+        // This allows multi-digit numbers to be formed
+        this.currentOperand =
+            this.currentOperand.toString() + number.toString();
+    }
+
+    chooseOperation(operation) {
+        // Pass in the operation as an argument
+    }
+
+    calculate() {}
+
+    updateDisplay() {
+        this.currentOperandText.innerText = this.currentOperand;
+    }
+
+    bindEvents() {
+        numericButtons.forEach(button => {
+            button.addEventListener('click', event => {
+                // Pass in the number from the button as an argument
+                this.appendNumber(event.target.innerText);
+                this.updateDisplay();
+            });
+        });
+        operationButtons.forEach(button => {
+            button.addEventListener('click', event =>
+                this.chooseOperation(event.target.innerText),
+            );
+        });
+        equalsButton.addEventListener('click', () => this.calculate());
+        allClearButton.addEventListener('click', () => this.clear());
+        deleteButton.addEventListener('click', () => this.delete());
+    }
+}
+
+/*
 class Calculator {
     constructor() {
         // Initialize calculator properties
@@ -141,7 +219,11 @@ class Calculator {
         this.display();
     }
 }
+*/
+// -----------------------------------------------------------------------------
+// INITIALIZATION
+// -----------------------------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
-    const calc = new Calculator();
+    const calculator = new Calculator(previousOperandText, currentOperandText);
 });
