@@ -22,6 +22,10 @@ const currentOperandText = document.querySelector('[data-current-operand]');
 // CALCULATOR CLASS
 // -----------------------------------------------------------------------------
 
+/*
+currentOperand = the number that is currently being typed
+previousOperand = the number that was typed before the operation was selected
+*/
 class Calculator {
     constructor(previousOperandText, currentOperandText) {
         // Constructor arguments are the operands because they are the only
@@ -231,5 +235,6 @@ class Calculator {
 // -----------------------------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Arguments are the operands because they are the only elements that need to be updated during the calculation
     const calculator = new Calculator(previousOperandText, currentOperandText);
 });
