@@ -1,9 +1,9 @@
 import './src/styles/main.css';
 
-// TODO: add keyboard support
 // TODO: add dark mode switch
+// TODO: create handleButtonClick method to combine all button click events
 // TODO: add sound effects
-// TODO: Display a snarky error message if the user tries to divide by 0
+// TODO: Display a snarky error message toast if the user tries to divide by 0
 // TODO: Make responsive
 
 // -----------------------------------------------------------------------------
@@ -166,6 +166,8 @@ class Calculator {
             this.previousOperandText.innerText = '';
         }
     }
+
+    // TODO: handleButtonClick(event)
 
     handleKeyPress(event) {
         console.log(event.key);
