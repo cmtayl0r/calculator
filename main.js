@@ -10,11 +10,13 @@ import './src/styles/main.css';
 // DOM ELEMENTS
 // -----------------------------------------------------------------------------
 
+// Buttons
 const numericButtons = document.querySelectorAll('[data-number]');
 const operationButtons = document.querySelectorAll('[data-operation]');
 const equalsButton = document.querySelector('[data-equals]');
 const deleteButton = document.querySelector('[data-delete]');
 const allClearButton = document.querySelector('[data-all-clear]');
+// Display
 const previousOperandText = document.querySelector('[data-previous-operand]');
 const currentOperandText = document.querySelector('[data-current-operand]');
 
@@ -171,7 +173,7 @@ class Calculator {
         }
     }
 
-    // TODO: handleButtonClick(event)
+    // TODO: handleButtonClick(event) {};
 
     handleKeyPress(event) {
         console.log(event.key);
@@ -194,6 +196,14 @@ class Calculator {
     }
 
     bindEvents() {
+        // TODO: handleButtonClick(event) {};
+        // Combine all click event listeners into one method
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', event => {
+                console.log(event.target.innerText);
+            });
+        });
+
         // Button clicks
         numericButtons.forEach(button => {
             button.addEventListener('click', event => {
