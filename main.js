@@ -16,6 +16,7 @@ const operationButtons = document.querySelectorAll('[data-operation]');
 const equalsButton = document.querySelector('[data-equals]');
 const deleteButton = document.querySelector('[data-delete]');
 const allClearButton = document.querySelector('[data-all-clear]');
+const calculatorButtons = document.querySelectorAll('button');
 // Display
 const previousOperandText = document.querySelector('[data-previous-operand]');
 const currentOperandText = document.querySelector('[data-current-operand]');
@@ -174,8 +175,10 @@ class Calculator {
     }
 
     handleButtonClick(event) {
+        // Get the innerText value of the button that was clicked
         const value = event.innerText;
 
+        // Map object with button values and their corresponding methods
         const buttonActions = {
             '.': () => {
                 this.appendNumber(value);
@@ -211,16 +214,17 @@ class Calculator {
             },
         };
         if (value >= '0' && value <= '9') {
+            // if button pressed is a number, append the number to the current operand
             this.appendNumber(value);
             this.updateDisplay();
         } else if (buttonActions[value]) {
+            // if button pressed is in the buttonActions object, execute the corresponding method
             buttonActions[value]();
         }
     }
 
     handleKeyPress(event) {
-        console.log(event.key);
-
+        // Map object with key values and their corresponding methods
         const keyActions = {
             '.': () => {
                 this.appendNumber(event.key);
@@ -260,22 +264,26 @@ class Calculator {
             },
         };
         if (event.key >= '0' && event.key <= '9') {
+            // if the key pressed is a number, append the number to the current operand
             this.appendNumber(event.key);
             this.updateDisplay();
         } else if (keyActions[event.key]) {
+            // if the key pressed is in the keyActions object, execute the corresponding method
             keyActions[event.key]();
         }
     }
 
     bindEvents() {
         // Combine all click event listeners into one method
-        document.querySelectorAll('button').forEach(button => {
+        calculatorButtons.forEach(button => {
             button.addEventListener('click', event =>
+                // pass in the button that was clicked
                 this.handleButtonClick(event.target),
             );
         });
         // Keyboard events
         document.addEventListener('keydown', event =>
+            // pass in the key that was pressed
             this.handleKeyPress(event),
         );
     }
