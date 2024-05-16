@@ -166,7 +166,27 @@ class Calculator {
         }
     }
 
+    handleKeyPress(event) {
+        console.log(event.key);
+        if ((event.key >= '0' && event.key <= '9') || event.key === '.') {
+            this.appendNumber(event.key);
+            this.updateDisplay();
+        } else if (['+', '-', '*', '/'].includes(event.key)) {
+            this.chooseOperation(event.key);
+            this.updateDisplay();
+        } else if (event.key === 'Enter' || ['='].includes(event.key)) {
+            this.calculate();
+            this.updateDisplay();
+        } else if (event.key === '.') {
+            console.log('BOOM!');
+        } else if (event.key === 'Escape') {
+            this.clear();
+            this.updateDisplay();
+        }
+    }
+
     bindEvents() {
+        // Button clicks
         numericButtons.forEach(button => {
             button.addEventListener('click', event => {
                 // Pass in the number from the button as an argument
@@ -195,6 +215,10 @@ class Calculator {
             this.delete();
             this.updateDisplay();
         });
+        // Keyboard events
+        document.addEventListener('keydown', event =>
+            this.handleKeyPress(event),
+        );
     }
 }
 
