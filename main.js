@@ -65,10 +65,10 @@ class Calculator {
     chooseOperation(operation) {
         // Pass in the operation selected as an argument
 
-        // If the current operand is empty, stop the function from executing
+        // A - If the current operand is empty, stop the function from executing
         if (this.currentOperand === '') return;
 
-        // If previousOperand is not empty, calculate the result
+        // B - If previousOperand is not empty, calculate the result
         // it means there is a previous operand available for calculation.
         if (this.previousOperand !== '') {
             // calculation based on the current and previous operands
@@ -76,9 +76,10 @@ class Calculator {
             this.calculate();
         }
 
+        // C - else if the previous operand is empty, set the current operand to the previous operand
         // Set the operation to the operation passed in
+        // because the operation is now selected and the calculation is not yet complete
         this.operation = operation;
-
         // Set the previous operand to the current operand
         // This allows the current operand to be cleared
         // and the previous operand to be displayed
