@@ -173,65 +173,106 @@ class Calculator {
         }
     }
 
-    // TODO: handleButtonClick(event) {};
+    handleButtonClick(event) {
+        const value = event.innerText;
+
+        const buttonActions = {
+            '.': () => {
+                this.appendNumber(value);
+                this.updateDisplay();
+            },
+            '+': () => {
+                this.chooseOperation(value);
+                this.updateDisplay();
+            },
+            '-': () => {
+                this.chooseOperation(value);
+                this.updateDisplay();
+            },
+            '*': () => {
+                this.chooseOperation(value);
+                this.updateDisplay();
+            },
+            '/': () => {
+                this.chooseOperation(value);
+                this.updateDisplay();
+            },
+            '=': () => {
+                this.calculate();
+                this.updateDisplay();
+            },
+            DEL: () => {
+                this.delete();
+                this.updateDisplay();
+            },
+            AC: () => {
+                this.clear();
+                this.updateDisplay();
+            },
+        };
+        if (value >= '0' && value <= '9') {
+            this.appendNumber(value);
+            this.updateDisplay();
+        } else if (buttonActions[value]) {
+            buttonActions[value]();
+        }
+    }
 
     handleKeyPress(event) {
         console.log(event.key);
-        if ((event.key >= '0' && event.key <= '9') || event.key === '.') {
+
+        const keyActions = {
+            '.': () => {
+                this.appendNumber(event.key);
+                this.updateDisplay();
+            },
+            '+': () => {
+                this.chooseOperation(event.key);
+                this.updateDisplay();
+            },
+            '-': () => {
+                this.chooseOperation(event.key);
+                this.updateDisplay();
+            },
+            '*': () => {
+                this.chooseOperation(event.key);
+                this.updateDisplay();
+            },
+            '/': () => {
+                this.chooseOperation(event.key);
+                this.updateDisplay();
+            },
+            Enter: () => {
+                this.calculate();
+                this.updateDisplay();
+            },
+            '=': () => {
+                this.calculate();
+                this.updateDisplay();
+            },
+            Backspace: () => {
+                this.delete();
+                this.updateDisplay();
+            },
+            Escape: () => {
+                this.clear();
+                this.updateDisplay();
+            },
+        };
+        if (event.key >= '0' && event.key <= '9') {
             this.appendNumber(event.key);
             this.updateDisplay();
-        } else if (['+', '-', '*', '/'].includes(event.key)) {
-            this.chooseOperation(event.key);
-            this.updateDisplay();
-        } else if (event.key === 'Enter' || ['='].includes(event.key)) {
-            this.calculate();
-            this.updateDisplay();
-        } else if (event.key === 'Backspace') {
-            this.delete();
-            this.updateDisplay();
-        } else if (event.key === 'Escape') {
-            this.clear();
-            this.updateDisplay();
+        } else if (keyActions[event.key]) {
+            keyActions[event.key]();
         }
     }
 
     bindEvents() {
-        // TODO: handleButtonClick(event) {};
         // Combine all click event listeners into one method
         document.querySelectorAll('button').forEach(button => {
-            button.addEventListener('click', event => {
-                console.log(event.target.innerText);
-            });
-        });
-
-        // Button clicks
-        numericButtons.forEach(button => {
-            button.addEventListener('click', event => {
-                // Pass in the number from the button as an argument
-                this.appendNumber(event.target.innerText);
-                // Update the display after the number is appended
-                this.updateDisplay();
-            });
-        });
-        operationButtons.forEach(button => {
-            button.addEventListener('click', event => {
-                // Pass in the operation from the button as an argument
-                this.chooseOperation(event.target.innerText);
-                // Update the display after the operation is chosen
-                this.updateDisplay();
-            });
-        });
-        equalsButton.addEventListener('click', () => {
-            this.calculate();
-            this.updateDisplay();
-        });
-        allClearButton.addEventListener('click', () => {
-            this.clear();
-            this.updateDisplay();
-        });
-        deleteButton.addEventListener('click', () => {
-            this.delete();
-            this.updateDisplay();
+            button.addEventListener('click', event =>
+                this.handleButtonClick(event.target),
+            );
         });
         // Keyboard events
         document.addEventListener('keydown', event =>
