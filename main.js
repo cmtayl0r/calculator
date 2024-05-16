@@ -177,8 +177,9 @@ class Calculator {
         } else if (event.key === 'Enter' || ['='].includes(event.key)) {
             this.calculate();
             this.updateDisplay();
-        } else if (event.key === '.') {
-            console.log('BOOM!');
+        } else if (event.key === 'Backspace') {
+            this.delete();
+            this.updateDisplay();
         } else if (event.key === 'Escape') {
             this.clear();
             this.updateDisplay();
